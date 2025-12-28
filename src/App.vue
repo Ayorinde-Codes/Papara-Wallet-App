@@ -17,19 +17,25 @@ const isStatsModalOpen = ref(false)
 provide('isQRModalOpen', isQRModalOpen)
 provide('isTransferModalOpen', isTransferModalOpen)
 provide('isStatsModalOpen', isStatsModalOpen)
-provide('setQRModalOpen', (value) => { isQRModalOpen.value = value })
-provide('setTransferModalOpen', (value) => { isTransferModalOpen.value = value })
-provide('setStatsModalOpen', (value) => { isStatsModalOpen.value = value })
+provide('setQRModalOpen', value => {
+  isQRModalOpen.value = value
+})
+provide('setTransferModalOpen', value => {
+  isTransferModalOpen.value = value
+})
+provide('setStatsModalOpen', value => {
+  isStatsModalOpen.value = value
+})
 
 onMounted(() => {
   initTheme()
 })
 
-const handleQRSelect = (action) => {
+const handleQRSelect = action => {
   console.log('QR action selected:', action)
 }
 
-const handleTransferSelect = (action) => {
+const handleTransferSelect = action => {
   console.log('Transfer action selected:', action)
 }
 </script>
@@ -38,22 +44,15 @@ const handleTransferSelect = (action) => {
   <MobileContainer>
     <RouterView />
     <BottomNavigation />
-    
-    <QRModal 
-      :isOpen="isQRModalOpen" 
-      @close="isQRModalOpen = false"
-      @select="handleQRSelect"
-    />
-    
-    <TransferModal 
-      :isOpen="isTransferModalOpen" 
+
+    <QRModal :isOpen="isQRModalOpen" @close="isQRModalOpen = false" @select="handleQRSelect" />
+
+    <TransferModal
+      :isOpen="isTransferModalOpen"
       @close="isTransferModalOpen = false"
       @select="handleTransferSelect"
     />
-    
-    <StatsModal 
-      :isOpen="isStatsModalOpen" 
-      @close="isStatsModalOpen = false"
-    />
+
+    <StatsModal :isOpen="isStatsModalOpen" @close="isStatsModalOpen = false" />
   </MobileContainer>
 </template>

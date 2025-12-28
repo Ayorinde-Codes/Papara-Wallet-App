@@ -1,4 +1,4 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const isDark = ref(true)
 
@@ -8,7 +8,7 @@ export function useTheme() {
     updateTheme()
   }
 
-  const setTheme = (dark) => {
+  const setTheme = dark => {
     isDark.value = dark
     updateTheme()
   }
@@ -44,7 +44,6 @@ export function useTheme() {
     isDark,
     toggleTheme,
     setTheme,
-    initTheme
+    initTheme,
   }
 }
-

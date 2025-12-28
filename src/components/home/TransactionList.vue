@@ -13,7 +13,7 @@ const transactions = [
     date: '14 Eylül 2025 20:14',
     transactionType: 'debit',
     logoComponent: OdeabankLogo,
-    logoColor: 'bg-emerald-900'
+    logoColor: 'bg-emerald-900',
   },
   {
     id: 2,
@@ -23,8 +23,8 @@ const transactions = [
     date: '14 Eylül 2025 20:12',
     transactionType: 'credit',
     logoComponent: GarantiBBVALogo,
-    logoColor: 'bg-green-600'
-  }
+    logoColor: 'bg-green-600',
+  },
 ]
 
 const emit = defineEmits(['view-all', 'transaction-click'])
@@ -32,11 +32,8 @@ const emit = defineEmits(['view-all', 'transaction-click'])
 
 <template>
   <div class="px-4">
-    <SectionHeader 
-      title="HESAP HAREKETLERİ"
-      @click="emit('view-all')"
-    />
-    
+    <SectionHeader title="HESAP HAREKETLERİ" @click="emit('view-all')" />
+
     <div class="space-y-1">
       <TransactionItem
         v-for="transaction in transactions"

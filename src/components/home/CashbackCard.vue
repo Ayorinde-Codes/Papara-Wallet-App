@@ -5,16 +5,16 @@ import SectionHeader from '@/components/common/SectionHeader.vue'
 defineProps({
   target: {
     type: String,
-    default: '₺500'
+    default: '₺500',
   },
   remaining: {
     type: String,
-    default: '₺500,00'
+    default: '₺500,00',
   },
   progress: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 })
 
 const emit = defineEmits(['click', 'help'])
@@ -22,23 +22,18 @@ const emit = defineEmits(['click', 'help'])
 
 <template>
   <div class="px-4">
-    <SectionHeader 
-      title="CASHBACK"
-      @click="emit('click')"
-    />
-    
+    <SectionHeader title="CASHBACK" @click="emit('click')" />
+
     <div class="bg-bg-card rounded-2xl p-4">
       <div class="flex items-start gap-3 mb-4">
         <div class="w-10 h-10 rounded-xl bg-bg-surface flex items-center justify-center shrink-0">
           <Lock class="w-5 h-5 text-text-secondary" />
         </div>
         <div class="flex-1">
-          <p class="text-sm text-text-primary">
-            {{ target }} harcama hedefini tamamla,
-          </p>
+          <p class="text-sm text-text-primary">{{ target }} harcama hedefini tamamla,</p>
           <p class="text-sm text-text-secondary">Cashback kazanmaya başla.</p>
         </div>
-        <button @click.stop="emit('help')" class="p-1">
+        <button class="p-1" @click.stop="emit('help')">
           <HelpCircle class="w-5 h-5 text-text-secondary" />
         </button>
       </div>
@@ -55,4 +50,3 @@ const emit = defineEmits(['click', 'help'])
     </div>
   </div>
 </template>
-

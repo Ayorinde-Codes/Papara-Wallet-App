@@ -6,20 +6,20 @@ import IconContainer from '@/components/common/IconContainer.vue'
 const props = defineProps({
   time: {
     type: String,
-    default: 'Bugün 06:00'
+    default: 'Bugün 06:00',
   },
   title: {
     type: String,
-    default: 'Aylık hesap özetin oluşturuldu.'
+    default: 'Aylık hesap özetin oluşturuldu.',
   },
   subtitle: {
     type: String,
-    default: 'Eylül ayında neler yaptığını görmek için tıkla'
+    default: 'Eylül ayında neler yaptığını görmek için tıkla',
   },
   badgeCount: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 })
 
 const emit = defineEmits(['click'])
@@ -35,7 +35,7 @@ const stackedCards = computed(() => {
       index,
       offset,
       widthOffset,
-      shadowClass
+      shadowClass,
     }
   })
 })
@@ -51,13 +51,13 @@ const stackedCards = computed(() => {
       :style="{
         top: `${card.offset}px`,
         left: `${card.offset}px`,
-        width: `calc(100% - ${card.widthOffset}px)`
+        width: `calc(100% - ${card.widthOffset}px)`,
       }"
     ></div>
-    
-    <button 
-      @click="emit('click')"
+
+    <button
       class="relative w-[calc(100%-32px)] h-full bg-bg-card rounded-2xl p-4 flex items-start gap-3 hover:bg-bg-surface transition-colors border border-border z-10"
+      @click="emit('click')"
     >
       <IconContainer bgColor="orange" borderColor="orange">
         <TrendingUp class="w-5 h-5 text-white" stroke-width="2.5" />
@@ -69,7 +69,7 @@ const stackedCards = computed(() => {
         <p class="text-xs text-text-secondary mt-0.5">{{ subtitle }}</p>
       </div>
 
-      <div 
+      <div
         v-if="badgeCount > 0"
         class="absolute -top-2 -right-2 w-6 h-6 bg-accent-red text-white text-xs font-bold rounded-full flex items-center justify-center z-20"
       >
@@ -78,4 +78,3 @@ const stackedCards = computed(() => {
     </button>
   </div>
 </template>
-

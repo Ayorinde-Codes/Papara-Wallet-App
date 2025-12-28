@@ -1,25 +1,38 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { X, Bus, Gamepad2, TrendingUp, Heart, Briefcase, Ticket, Smartphone, Train } from 'lucide-vue-next'
+import {
+  X,
+  Bus,
+  Gamepad2,
+  TrendingUp,
+  Heart,
+  Briefcase,
+  Ticket,
+  Smartphone,
+  Train,
+} from 'lucide-vue-next'
 import DottedArrow from '@/assets/icons/DottedArrow.vue'
 import MiniDonutChart from '@/assets/icons/MiniDonutChart.vue'
 
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const emit = defineEmits(['close'])
 
-watch(() => props.isOpen, (isOpen) => {
-  if (isOpen) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = ''
+watch(
+  () => props.isOpen,
+  isOpen => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
   }
-})
+)
 
 const close = () => {
   emit('close')
@@ -33,7 +46,7 @@ const categories = ref([
   { id: 5, name: 'Findeks', color: '#5C6BC0', icon: Briefcase, percentage: 8 },
   { id: 6, name: 'Havalimanı Hizmetleri', color: '#42A5F5', icon: Ticket, percentage: 18 },
   { id: 7, name: 'GSM TL/Paket', color: '#FFA726', icon: Smartphone, percentage: 12 },
-  { id: 8, name: 'Toplu Taşıma', color: '#26A69A', icon: Train, percentage: 18 }
+  { id: 8, name: 'Toplu Taşıma', color: '#26A69A', icon: Train, percentage: 18 },
 ])
 
 const totalAmount = ref('₺3.417,50')
@@ -44,7 +57,7 @@ const segments = computed(() => {
     const segment = {
       ...cat,
       startAngle: cumulative * 3.6,
-      endAngle: (cumulative + cat.percentage) * 3.6
+      endAngle: (cumulative + cat.percentage) * 3.6,
     }
     cumulative += cat.percentage
     return segment
@@ -56,9 +69,9 @@ const getSegmentPath = (startAngle, endAngle, innerRadius = 60, outerRadius = 10
   const endOuter = polarToCartesian(100, 100, outerRadius, endAngle)
   const startInner = polarToCartesian(100, 100, innerRadius, endAngle)
   const endInner = polarToCartesian(100, 100, innerRadius, startAngle)
-  
+
   const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0
-  
+
   return `M ${startOuter.x} ${startOuter.y} 
           A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${endOuter.x} ${endOuter.y}
           L ${startInner.x} ${startInner.y}
@@ -67,10 +80,10 @@ const getSegmentPath = (startAngle, endAngle, innerRadius = 60, outerRadius = 10
 }
 
 const polarToCartesian = (cx, cy, radius, angleInDegrees) => {
-  const angleInRadians = (angleInDegrees - 90) * Math.PI / 180
+  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180
   return {
     x: cx + radius * Math.cos(angleInRadians),
-    y: cy + radius * Math.sin(angleInRadians)
+    y: cy + radius * Math.sin(angleInRadians),
   }
 }
 
@@ -82,12 +95,9 @@ const getIconPosition = (startAngle, endAngle, radius = 80) => {
 
 <template>
   <Transition name="modal">
-    <div
-      v-if="isOpen"
-      class="absolute inset-0 z-50 flex flex-col"
-    >
+    <div v-if="isOpen" class="absolute inset-0 z-50 flex flex-col">
       <div class="absolute inset-0 bg-bg-primary/80 backdrop-blur-xl"></div>
-      
+
       <div class="flex-1 overflow-y-auto flex flex-col px-6 py-8 relative z-10">
         <DottedArrow class="absolute top-12 right-14 w-24 h-16 z-10 opacity-60" />
 
@@ -109,7 +119,7 @@ const getIconPosition = (startAngle, endAngle, radius = 80) => {
                 class="transition-all duration-500 hover:opacity-80 cursor-pointer"
               />
             </svg>
-            
+
             <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full pointer-events-none">
               <g
                 v-for="segment in segments"
@@ -118,11 +128,7 @@ const getIconPosition = (startAngle, endAngle, radius = 80) => {
               >
                 <foreignObject x="-10" y="-10" width="20" height="20">
                   <div class="flex items-center justify-center w-full h-full">
-                    <component 
-                      :is="segment.icon" 
-                      class="w-5 h-5 text-white" 
-                      stroke-width="1.5"
-                    />
+                    <component :is="segment.icon" class="w-5 h-5 text-white" stroke-width="1.5" />
                   </div>
                 </foreignObject>
               </g>
@@ -174,16 +180,16 @@ const getIconPosition = (startAngle, endAngle, radius = 80) => {
 
         <div class="text-center mb-8 shrink-0 px-4">
           <p class="text-xl font-semibold text-text-primary leading-snug">
-            Ödemelerini aylık olarak<br>
-            kategori bazlı<br>
+            Ödemelerini aylık olarak<br />
+            kategori bazlı<br />
             görüntüleyebilirsin.
           </p>
         </div>
 
         <div class="flex flex-col items-center mt-auto shrink-0">
-          <button 
-            @click="close"
+          <button
             class="w-14 h-14 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors bg-white"
+            @click="close"
           >
             <X class="w-6 h-6 text-black" />
           </button>
@@ -205,4 +211,3 @@ const getIconPosition = (startAngle, endAngle, radius = 80) => {
   opacity: 0;
 }
 </style>
-

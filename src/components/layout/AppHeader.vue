@@ -5,12 +5,12 @@ import { useTheme } from '@/composables/useTheme'
 defineProps({
   paparaNo: {
     type: String,
-    default: '1234567890'
+    default: '1234567890',
   },
   notificationCount: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 })
 
 const emit = defineEmits(['menu-click', 'messages-click', 'profile-click'])
@@ -21,22 +21,22 @@ const { isDark, toggleTheme } = useTheme()
 <template>
   <header class="flex items-center justify-between px-4 py-3 bg-bg-primary sticky top-0 z-40">
     <div class="flex items-center gap-2">
-      <button 
-        @click="emit('menu-click')"
+      <button
         class="relative w-11 h-11 flex items-center justify-center rounded-full bg-bg-surface hover:bg-border transition-colors"
+        @click="emit('menu-click')"
       >
         <Menu class="w-5 h-5 text-text-primary" />
-        <span 
+        <span
           v-if="notificationCount > 0"
           class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-accent-red text-white text-xs font-bold rounded-full flex items-center justify-center"
         >
           {{ notificationCount > 9 ? '9+' : notificationCount }}
         </span>
       </button>
-      
-      <button 
-        @click="emit('messages-click')"
+
+      <button
         class="w-11 h-11 flex items-center justify-center rounded-full bg-bg-surface hover:bg-border transition-colors"
+        @click="emit('messages-click')"
       >
         <MessageSquare class="w-5 h-5 text-text-primary" />
       </button>
@@ -48,21 +48,20 @@ const { isDark, toggleTheme } = useTheme()
     </div>
 
     <div class="flex items-center gap-2">
-      <button 
-        @click="toggleTheme"
+      <button
         class="w-11 h-11 flex items-center justify-center rounded-full bg-bg-surface hover:bg-border transition-colors"
+        @click="toggleTheme"
       >
         <Sun v-if="isDark" class="w-5 h-5 text-text-primary" />
         <Moon v-else class="w-5 h-5 text-text-primary" />
       </button>
-      
-      <button 
-        @click="emit('profile-click')"
+
+      <button
         class="w-11 h-11 flex items-center justify-center rounded-full bg-bg-surface hover:bg-border transition-colors"
+        @click="emit('profile-click')"
       >
         <User class="w-5 h-5 text-text-primary" />
       </button>
     </div>
   </header>
 </template>
-

@@ -8,7 +8,7 @@ const emit = defineEmits(['deposit', 'request-card', 'invite'])
 <template>
   <div class="px-4">
     <div class="flex gap-3 overflow-x-auto hide-scrollbar py-1">
-      <QuickActionButton 
+      <QuickActionButton
         label="Hesabına"
         sublabel="Para Yatır"
         :icon="ArrowUpCircle"
@@ -20,7 +20,7 @@ const emit = defineEmits(['deposit', 'request-card', 'invite'])
         :icon="CreditCard"
         @click="emit('request-card')"
       />
-      <QuickActionButton 
+      <QuickActionButton
         label="Profil"
         sublabel="Ayarlar"
         :icon="UserPlus"
@@ -29,4 +29,3 @@ const emit = defineEmits(['deposit', 'request-card', 'invite'])
     </div>
   </div>
 </template>
-

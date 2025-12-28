@@ -5,34 +5,34 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/cards',
     name: 'cards',
-    component: () => import('@/views/CardsView.vue')
+    component: () => import('@/views/CardsView.vue'),
   },
   {
     path: '/qr',
-    redirect: '/'
+    redirect: '/',
   },
   {
     path: '/transfer',
-    redirect: '/'
+    redirect: '/',
   },
   {
     path: '/stats',
-    redirect: '/'
+    redirect: '/',
   },
   {
     path: '/payments',
-    redirect: '/'
-  }
+    redirect: '/',
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router

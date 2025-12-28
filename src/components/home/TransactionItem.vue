@@ -4,37 +4,37 @@ import { computed } from 'vue'
 const props = defineProps({
   logo: {
     type: String,
-    default: ''
+    default: '',
   },
   logoComponent: {
     type: Object,
-    default: null
+    default: null,
   },
   logoColor: {
     type: String,
-    default: 'bg-bg-surface'
+    default: 'bg-bg-surface',
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   type: {
     type: String,
-    default: 'FAST Para Transferi'
+    default: 'FAST Para Transferi',
   },
   amount: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: String,
-    required: true
+    required: true,
   },
   transactionType: {
     type: String,
     default: 'credit',
-    validator: (value) => ['credit', 'debit'].includes(value)
-  }
+    validator: value => ['credit', 'debit'].includes(value),
+  },
 })
 
 const emit = defineEmits(['click'])
@@ -43,17 +43,17 @@ const isCredit = computed(() => props.transactionType === 'credit')
 </script>
 
 <template>
-  <button 
-    @click="emit('click')"
+  <button
     class="w-full flex items-center gap-3 py-3 hover:bg-bg-surface/50 rounded-xl transition-colors px-2 -mx-2"
+    @click="emit('click')"
   >
-    <div 
+    <div
       class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 overflow-hidden"
       :class="props.logoColor"
     >
-      <component 
-        v-if="props.logoComponent" 
-        :is="props.logoComponent" 
+      <component
+        :is="props.logoComponent"
+        v-if="props.logoComponent"
         class="w-full h-full text-white"
       />
       <img v-else-if="props.logo" :src="props.logo" alt="" class="w-full h-full object-cover" />
@@ -66,10 +66,7 @@ const isCredit = computed(() => props.transactionType === 'credit')
     </div>
 
     <div class="text-right shrink-0">
-      <p 
-        class="text-sm font-semibold"
-        :class="isCredit ? 'text-accent-green' : 'text-accent-red'"
-      >
+      <p class="text-sm font-semibold" :class="isCredit ? 'text-accent-green' : 'text-accent-red'">
         {{ props.amount }}
       </p>
       <p class="text-xs text-text-secondary">{{ props.date }}</p>

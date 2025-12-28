@@ -1,12 +1,12 @@
 <template>
-  <svg 
-    :width="width" 
-    :height="height" 
+  <svg
+    :width="width"
+    :height="height"
     :class="[className, rotated ? 'rotate-90' : '']"
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    :stroke-width="strokeWidth" 
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    :stroke-width="strokeWidth"
     stroke-linecap="round"
   >
     <path d="M5 12.55a11 11 0 0 1 14.08 0" />
@@ -20,24 +20,23 @@
 defineProps({
   width: {
     type: [String, Number],
-    default: 20
+    default: 20,
   },
   height: {
     type: [String, Number],
-    default: 20
+    default: 20,
   },
   className: {
     type: String,
-    default: ''
+    default: '',
   },
   rotated: {
     type: Boolean,
-    default: true
+    default: true,
   },
   strokeWidth: {
     type: [String, Number],
-    default: 2.5
-  }
+    default: 2.5,
+  },
 })
 </script>
-

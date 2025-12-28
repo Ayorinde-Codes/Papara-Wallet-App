@@ -4,20 +4,23 @@ import { watch } from 'vue'
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const emit = defineEmits(['close'])
 
 // Prevent body scroll when modal is open
-watch(() => props.isOpen, (isOpen) => {
-  if (isOpen) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = ''
+watch(
+  () => props.isOpen,
+  isOpen => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
   }
-})
+)
 
 const handleBackdropClick = () => {
   emit('close')
@@ -26,16 +29,10 @@ const handleBackdropClick = () => {
 
 <template>
   <Transition name="modal">
-    <div 
-      v-if="isOpen"
-      class="absolute inset-0 z-50 flex items-end justify-center p-4 pb-6"
-    >
+    <div v-if="isOpen" class="absolute inset-0 z-50 flex items-end justify-center p-4 pb-6">
       <!-- Backdrop -->
-      <div 
-        class="absolute inset-0 bg-black/50"
-        @click="handleBackdropClick"
-      />
-      
+      <div class="absolute inset-0 bg-black/50" @click="handleBackdropClick" />
+
       <!-- Modal content -->
       <div class="relative w-full bg-bg-card rounded-2xl animate-slide-up">
         <slot />
@@ -78,4 +75,3 @@ const handleBackdropClick = () => {
   }
 }
 </style>
-
