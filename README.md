@@ -38,11 +38,6 @@ cd Papara-Wallet-App
 npm install
 ```
 
-> **Note for Windows users**: If you encounter native module errors during installation (particularly with `sharp`), try:
-> - Ensure you're using Node.js 22+ (check with `node --version`)
-> - Run `npm install --ignore-scripts` then `npm rebuild sharp`
-> - Or use WSL (Windows Subsystem for Linux) for a more compatible environment
-
 3. **Start the development server**
 ```bash
 npm run dev
@@ -86,31 +81,6 @@ Open the URL shown in the terminal, then install:
 | **Cards** | Card showcase (Gray, Black, EDU cards) |
 | **Stats** | Spending statistics with donut chart |
 
-## 🔧 Troubleshooting
-
-### Windows Installation Issues
-
-If you encounter native module errors (especially with `sharp` or Vite/Tailwind integration):
-
-1. **Verify Node.js version**: Ensure you're using Node.js 22 or higher
-   ```bash
-   node --version  # Should show v22.x.x or higher
-   ```
-
-2. **Clear npm cache and reinstall**:
-   ```bash
-   npm cache clean --force
-   rm -rf node_modules package-lock.json
-   npm install
-   ```
-
-3. **Alternative: Use Node Version Manager (nvm)**
-   - Install nvm for Windows: https://github.com/coreybutler/nvm-windows
-   - Switch to Node 22: `nvm install 22` then `nvm use 22`
-
-4. **Last resort: Use WSL (Windows Subsystem for Linux)**
-   - Install WSL2 and run the project in a Linux environment
-   - This provides the most compatible setup for Node.js projects
 
 ### Development Server Issues
 
@@ -118,5 +88,3 @@ If the dev server fails to start:
 - Check that port 5173 is not already in use
 - Try a different port: `npm run dev -- --port 3000`
 - Ensure all dependencies installed correctly: `npm install`
-
-
