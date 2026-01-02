@@ -49,9 +49,11 @@ const stackedCards = computed(() => {
       class="absolute rounded-2xl bg-bg-card border border-border h-full"
       :class="card.shadowClass"
       :style="{
-        top: `${card.offset}px`,
-        left: `${card.offset}px`,
-        width: `calc(100% - ${card.widthOffset}px)`,
+        '--offset': `${card.offset}px`,
+        '--width-offset': `${card.widthOffset}px`,
+        top: 'var(--offset)',
+        left: 'var(--offset)',
+        width: 'calc(100% - var(--width-offset))',
       }"
     ></div>
 

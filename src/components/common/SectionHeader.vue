@@ -30,6 +30,6 @@ const emit = defineEmits(['click'])
         class="w-4 h-4 text-text-secondary group-hover:translate-x-0.5 transition-transform"
       />
     </div>
-    <span v-if="pagination" class="text-sm text-accent-green font-medium">{{ pagination }}</span>
+    <span v-if="pagination" class="text-sm text-accent-orange font-medium">{{ pagination }}</span>
   </button>
 </template>

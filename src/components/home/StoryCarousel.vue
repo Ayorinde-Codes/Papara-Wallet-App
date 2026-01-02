@@ -46,9 +46,9 @@ const emit = defineEmits(['story-click'])
           </div>
           <div
             v-if="story.isPinned"
-            class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-bg-card rounded-full flex items-center justify-center shadow-lg z-10"
+            class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-white rounded-full flex items-center justify-center border border-gray-800 shadow-lg z-10"
           >
-            <PushPinIcon class="w-3.5 h-3.5 text-text-primary" />
+            <PushPinIcon class="w-3 h-3 text-black" />
           </div>
         </div>
         <span class="text-xs text-text-secondary text-center leading-tight whitespace-normal">{{

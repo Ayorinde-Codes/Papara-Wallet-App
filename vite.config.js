@@ -42,8 +42,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        runtimeCaching: []
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       },
       injectRegister: 'script'
     })

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import StoryCarousel from '@/components/home/StoryCarousel.vue'
 import FeatureCarousel from '@/components/home/FeatureCarousel.vue'
@@ -24,6 +24,18 @@ import {
 
 const showTransferSheet = ref(false)
 const showQRSheet = ref(false)
+const quickActionsPagination = ref({ current: 1, total: 1 })
+
+const paginationText = computed(() => {
+  if (quickActionsPagination.value.total > 1) {
+    return `${quickActionsPagination.value.current} / ${quickActionsPagination.value.total}`
+  }
+  return ''
+})
+
+const handleQuickActionsPageChange = ({ current, total }) => {
+  quickActionsPagination.value = { current, total }
+}
 </script>
 
 <template>
@@ -37,10 +49,10 @@ const showQRSheet = ref(false)
     <NotificationBanner class="mb-6" :badge-count="5" />
 
     <div class="px-4 mb-4">
-      <SectionHeader title="DAHA İYİ BİR PAPARA DENEYİMİ" pagination="2 / 5" />
+      <SectionHeader title="DAHA İYİ BİR PAPARA DENEYİMİ" :pagination="paginationText" />
     </div>
 
-    <QuickActions class="mb-6" />
+    <QuickActions class="mb-6" @page-change="handleQuickActionsPageChange" />
 
     <TransactionList class="mb-6" />
 

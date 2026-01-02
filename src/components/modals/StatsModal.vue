@@ -94,110 +94,127 @@ const getIconPosition = (startAngle, endAngle, radius = 80) => {
 </script>
 
 <template>
-  <Transition name="modal">
-    <div v-if="isOpen" class="absolute inset-0 z-50 flex flex-col">
-      <div class="absolute inset-0 bg-bg-primary/80 backdrop-blur-xl"></div>
+  <Teleport to="body">
+    <Transition name="modal">
+      <div
+        v-if="isOpen"
+        class="fixed inset-0 z-50 flex flex-col lg:items-center lg:justify-center lg:p-4"
+      >
+        <div class="absolute inset-0 bg-bg-primary/80 backdrop-blur-xl" @click="close"></div>
 
-      <div class="flex-1 overflow-y-auto flex flex-col px-6 py-8 relative z-10">
-        <DottedArrow class="absolute top-12 right-14 w-24 h-16 z-10 opacity-60" />
+        <div
+          class="relative z-10 w-full flex-1 lg:flex-none lg:w-auto lg:max-w-md overflow-y-auto flex flex-col px-4 sm:px-6 py-6 sm:py-8 lg:max-h-[90vh]"
+        >
+          <DottedArrow
+            class="absolute top-8 sm:top-12 right-8 sm:right-14 w-20 sm:w-24 h-12 sm:h-16 z-10 opacity-60"
+          />
 
-        <div class="absolute top-8 right-6 flex flex-col items-center z-10">
-          <MiniDonutChart :width="32" :height="32" />
-          <span class="text-sm text-text-secondary mt-1">Özet</span>
-        </div>
+          <div class="absolute top-6 sm:top-8 right-4 sm:right-6 flex flex-col items-center z-10">
+            <MiniDonutChart :width="32" :height="32" />
+            <span class="text-xs sm:text-sm text-text-secondary mt-1">Özet</span>
+          </div>
 
-        <div class="h-12 shrink-0"></div>
+          <div class="h-10 sm:h-12 shrink-0"></div>
 
-        <div class="flex justify-center mb-6 shrink-0">
-          <div class="relative w-56 h-56">
-            <svg viewBox="0 0 200 200" class="w-full h-full transform -rotate-90">
-              <path
-                v-for="segment in segments"
-                :key="segment.id"
-                :d="getSegmentPath(segment.startAngle, segment.endAngle - 1)"
-                :fill="segment.color"
-                class="transition-all duration-500 hover:opacity-80 cursor-pointer"
-              />
-            </svg>
+          <div class="flex justify-center mb-4 sm:mb-6 shrink-0">
+            <div class="relative w-48 h-48 sm:w-56 sm:h-56">
+              <svg viewBox="0 0 200 200" class="w-full h-full transform -rotate-90">
+                <path
+                  v-for="segment in segments"
+                  :key="segment.id"
+                  :d="getSegmentPath(segment.startAngle, segment.endAngle - 1)"
+                  :fill="segment.color"
+                  class="transition-all duration-500 hover:opacity-80 cursor-pointer"
+                />
+              </svg>
 
-            <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full pointer-events-none">
-              <g
-                v-for="segment in segments"
-                :key="'icon-' + segment.id"
-                :transform="`translate(${getIconPosition(segment.startAngle - 90, segment.endAngle - 90, 80).x}, ${getIconPosition(segment.startAngle - 90, segment.endAngle - 90, 80).y})`"
-              >
-                <foreignObject x="-10" y="-10" width="20" height="20">
-                  <div class="flex items-center justify-center w-full h-full">
-                    <component :is="segment.icon" class="w-5 h-5 text-white" stroke-width="1.5" />
-                  </div>
-                </foreignObject>
-              </g>
-            </svg>
+              <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full pointer-events-none">
+                <g
+                  v-for="segment in segments"
+                  :key="'icon-' + segment.id"
+                  :transform="`translate(${getIconPosition(segment.startAngle - 90, segment.endAngle - 90, 80).x}, ${getIconPosition(segment.startAngle - 90, segment.endAngle - 90, 80).y})`"
+                >
+                  <foreignObject x="-10" y="-10" width="20" height="20">
+                    <div class="flex items-center justify-center w-full h-full">
+                      <component :is="segment.icon" class="w-5 h-5 text-white" stroke-width="1.5" />
+                    </div>
+                  </foreignObject>
+                </g>
+              </svg>
 
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <span class="text-xs text-text-secondary">Toplam</span>
-              <span class="text-xl font-bold text-text-primary">{{ totalAmount }}</span>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span class="text-xs text-text-secondary">Toplam</span>
+                <span class="text-lg sm:text-xl font-bold text-text-primary">{{
+                  totalAmount
+                }}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="mb-8 shrink-0">
-          <div class="flex justify-center gap-6 mb-3">
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#4CAF50]" />
-              <span class="text-xs text-text-primary">Ulaşım Kartları</span>
+          <div class="mb-6 sm:mb-8 shrink-0 px-2">
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-6 mb-2 sm:mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#4CAF50]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">Ulaşım Kartları</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#7C4DFF]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">Oyun & Dijital Kod</span>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#7C4DFF]" />
-              <span class="text-xs text-text-primary">Oyun & Dijital Kod</span>
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-6 mb-2 sm:mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#607D8B]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">Şans Oyunları</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#EF5350]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">Bağış</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#5C6BC0]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">Findeks</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-6">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#42A5F5]" />
+                <span class="text-xs text-text-primary whitespace-nowrap"
+                  >Havalimanı Hizmetleri</span
+                >
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#FFA726]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">GSM TL/Paket</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#26A69A]" />
+                <span class="text-xs text-text-primary whitespace-nowrap">Toplu Taşıma</span>
+              </div>
             </div>
           </div>
-          <div class="flex justify-center gap-6 mb-3">
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#607D8B]" />
-              <span class="text-xs text-text-primary">Şans Oyunları</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#EF5350]" />
-              <span class="text-xs text-text-primary">Bağış</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#5C6BC0]" />
-              <span class="text-xs text-text-primary">Findeks</span>
-            </div>
-          </div>
-          <div class="flex justify-center gap-6">
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#42A5F5]" />
-              <span class="text-xs text-text-primary">Havalimanı Hizmetleri</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-2.5 h-2.5 rounded-sm shrink-0 bg-[#FFA726]" />
-              <span class="text-xs text-text-primary">GSM TL/Paket</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="text-center mb-8 shrink-0 px-4">
-          <p class="text-xl font-semibold text-text-primary leading-snug">
-            Ödemelerini aylık olarak<br />
-            kategori bazlı<br />
-            görüntüleyebilirsin.
-          </p>
-        </div>
+          <div class="text-center mb-6 sm:mb-8 shrink-0 px-2 sm:px-4">
+            <p class="text-lg sm:text-xl font-semibold text-text-primary leading-snug">
+              Ödemelerini aylık olarak<br />
+              kategori bazlı<br />
+              görüntüleyebilirsin.
+            </p>
+          </div>
 
-        <div class="flex flex-col items-center mt-auto shrink-0">
-          <button
-            class="w-14 h-14 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors bg-white"
-            @click="close"
-          >
-            <X class="w-6 h-6 text-black" />
-          </button>
-          <span class="mt-2 text-sm text-text-secondary">Anladım</span>
+          <div class="flex flex-col items-center mt-auto shrink-0">
+            <button
+              class="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors bg-white"
+              @click="close"
+            >
+              <X class="w-5 h-5 sm:w-6 sm:h-6 text-black" />
+            </button>
+            <span class="mt-2 text-xs sm:text-sm text-text-secondary">Anladım</span>
+          </div>
         </div>
       </div>
-    </div>
-  </Transition>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>

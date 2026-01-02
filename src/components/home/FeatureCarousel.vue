@@ -1,17 +1,21 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { ChevronRight, Coins, CreditCard, Send } from 'lucide-vue-next'
+import { Coins, CreditCard, Send } from 'lucide-vue-next'
 import IconContainer from '@/components/common/IconContainer.vue'
+import FeatureCardButton from '@/components/common/FeatureCardButton.vue'
 import KymetliLogo from '@/assets/images/kymetli-madenler-logo.png'
 import DolarLogo from '@/assets/images/dolar-hesabi-logo.png'
 import YatirimLogo from '@/assets/images/yatirim-hesabi-logo.png'
 import BirikimLogo from '@/assets/images/birikim-hesabi-logo.png'
+import NasdaqLogo from '@/assets/images/nasdaq-logo.png'
+import BorsaIstanbulLogo from '@/assets/images/borsa-istanbul-logo.png'
 
 const currentSlide = ref(0)
 let autoSlideInterval = null
 
 const carouselStyle = computed(() => ({
-  transform: `translateX(-${currentSlide.value * 100}%)`,
+  '--translate-x': `-${currentSlide.value * 100}%`,
+  transform: 'translateX(var(--translate-x))',
 }))
 
 const slides = ref([
@@ -108,7 +112,7 @@ onUnmounted(() => {
     <div class="overflow-hidden rounded-3xl">
       <div class="flex transition-transform duration-300 ease-out" :style="carouselStyle">
         <div v-for="slide in slides" :key="slide.id" class="w-full shrink-0">
-          <div v-if="slide.type === 'lira'" class="rounded-3xl p-5 min-h-[240px] bg-zinc-800">
+          <div v-if="slide.type === 'lira'" class="rounded-3xl p-5 min-h-[240px] bg-bg-card">
             <div class="flex items-center gap-2 mb-4">
               <span class="text-lg">🇹🇷</span>
               <span class="text-sm text-text-primary font-medium">{{ slide.title }}</span>
@@ -164,12 +168,12 @@ onUnmounted(() => {
 
           <div
             v-else-if="slide.type === 'balance'"
-            class="rounded-3xl p-5 min-h-[240px] bg-zinc-800"
+            class="rounded-3xl p-5 min-h-[240px] bg-bg-card"
           >
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-full bg-accent-purple flex items-center justify-center">
-                  <span class="text-white text-xs font-bold">P</span>
+                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                  <span class="text-black text-xs font-bold">P</span>
                 </div>
                 <span class="text-sm text-text-secondary">{{ slide.title }}</span>
               </div>
@@ -198,7 +202,7 @@ onUnmounted(() => {
 
           <div
             v-else-if="slide.type === 'gold'"
-            class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-zinc-800"
+            class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-bg-card"
           >
             <div class="flex items-start justify-between">
               <div class="flex-1">
@@ -235,28 +239,19 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <button
-              class="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-bg-card/90 backdrop-blur rounded-xl px-4 py-3.5 hover:bg-bg-card transition-colors"
-            >
-              <span class="text-sm font-semibold text-text-primary">{{ slide.buttonText }}</span>
-              <ChevronRight class="w-5 h-5 text-text-secondary" />
-            </button>
+            <FeatureCardButton :text="slide.buttonText" />
           </div>
 
           <div
             v-else-if="slide.type === 'investment'"
-            class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-zinc-800"
+            class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-bg-card"
           >
             <div class="flex items-start justify-between">
               <div class="flex-1">
-                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-8 h-8 rounded bg-emerald-500 flex items-center justify-center">
-                    <span class="text-white text-xs font-bold">N</span>
-                  </div>
-                  <span class="text-xs text-text-secondary">Nasdaq | NYSE</span>
-                  <div class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
-                    <span class="text-white text-xs font-bold">B</span>
-                  </div>
+                <div class="flex items-center gap-2 mb-4">
+                  <img :src="NasdaqLogo" alt="Nasdaq" class="h-4 object-contain" />
+                  <span class="text-xs text-text-secondary">NYSE</span>
+                  <img :src="BorsaIstanbulLogo" alt="Borsa Istanbul" class="h-4 object-contain" />
                 </div>
 
                 <h3
@@ -273,17 +268,12 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <button
-              class="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-bg-card/90 backdrop-blur rounded-xl px-4 py-3.5 hover:bg-bg-card transition-colors"
-            >
-              <span class="text-sm font-semibold text-text-primary">{{ slide.buttonText }}</span>
-              <ChevronRight class="w-5 h-5 text-text-secondary" />
-            </button>
+            <FeatureCardButton :text="slide.buttonText" />
           </div>
 
           <div
             v-else-if="slide.type === 'birikim'"
-            class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-zinc-800"
+            class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-bg-card"
           >
             <div class="flex items-start justify-between">
               <div class="flex-1">
@@ -307,15 +297,10 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <button
-              class="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-bg-card/90 backdrop-blur rounded-xl px-4 py-3.5 hover:bg-bg-card transition-colors"
-            >
-              <span class="text-sm font-semibold text-text-primary">{{ slide.buttonText }}</span>
-              <ChevronRight class="w-5 h-5 text-text-secondary" />
-            </button>
+            <FeatureCardButton :text="slide.buttonText" />
           </div>
 
-          <div v-else class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-zinc-800">
+          <div v-else class="rounded-3xl p-5 min-h-[240px] relative overflow-hidden bg-bg-card">
             <div class="flex items-start justify-between">
               <div class="flex-1">
                 <div
@@ -339,12 +324,7 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <button
-              class="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-bg-card/90 backdrop-blur rounded-xl px-4 py-3.5 hover:bg-bg-card transition-colors"
-            >
-              <span class="text-sm font-semibold text-text-primary">{{ slide.buttonText }}</span>
-              <ChevronRight class="w-5 h-5 text-text-secondary" />
-            </button>
+            <FeatureCardButton :text="slide.buttonText" />
           </div>
         </div>
       </div>
